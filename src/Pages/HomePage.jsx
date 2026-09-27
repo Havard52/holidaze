@@ -39,13 +39,14 @@ function HomePage() {
       </section>
 
       <section>
-        <h2>Venues</h2>
+  <h2>Venues</h2>
 
-{venues.map((venue) => (
-  <VenueCard key={venue.id} venue={venue} />
-))}
-
-      </section>
+  <div className="venue-grid">
+    {venues.map((venue) => (
+      <VenueCard key={venue.id} venue={venue} />
+    ))}
+  </div>
+</section>
     </main>
   );
 }
