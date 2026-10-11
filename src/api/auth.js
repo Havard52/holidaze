@@ -24,3 +24,26 @@ export async function registerUser(userData) {
 
   return result.data;
 }
+
+export async function loginUser(credentials) {
+  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  const result = await response.json();
+
+  
+  if (!response.ok) {
+    const message =
+      result.errors?.map((error) => error.message).join(", ") ||
+      "Login failed. Please check your credentials.";
+
+    throw new Error(message);
+  }
+
+  return result.data;
+}
