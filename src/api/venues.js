@@ -19,3 +19,16 @@ export async function getVenue(id) {
 
   return result.data;
 }
+
+export async function searchVenues(query){
+      const response = await fetch(
+    `${API_BASE_URL}/holidaze/venues/search?q=${encodeURIComponent(query)}`
+   );
+
+  if (!response.ok) {
+    throw new Error("Could not search the venues");
+ }
+
+  const result = await response.json();
+  return result.data;
+}
