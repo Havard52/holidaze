@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from "../api/auth";
+import { loginUser, createApiKey } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
@@ -24,23 +24,27 @@ function LoginPage() {
     }));
   }
 
-  
   async function handleSubmit(event) {
     event.preventDefault();
     setError("");
     setIsLoading(true);
 
-    try {
-      const userData = await loginUser(formData);
+try {
 
-      login(userData);
+  const userData = await loginUser(formData);
+  const apiKey = await createApiKey(userData.accessToken);
 
-      navigate("/");
-    } catch (error) {
-      setError(error.message);
-    } finally {
-      setIsLoading(false);
-    }}
+  login({
+    ...userData,
+    apiKey,
+  });
+
+  navigate("/");
+} catch (error) {
+  setError(error.message);
+} finally {
+  setIsLoading(false);
+}}
 
   return (
     <main>

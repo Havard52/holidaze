@@ -28,3 +28,81 @@ main {
   height: 220px;
   object-fit: cover;
 }
+
+
+//Calendar styling
+.calendar-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.4rem;
+  max-width: 650px;
+}
+
+
+.calendar-grid > strong {
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.calendar-day {
+  padding: 0.75rem 0.25rem;
+  text-align: center;
+  border: 1px solid #d1d5db;
+  border-radius: 5px;
+}
+
+
+.calendar-day.booked {
+  background-color: #f8caca;
+  color: #842020;
+}
+
+.calendar-day.past {
+  background-color: #e5e7eb;
+  color: #555;
+}
+
+
+.calendar-day {
+  cursor: pointer;
+  background: white;
+  font: inherit;
+}
+
+.calendar-day:disabled {
+  cursor: not-allowed;
+}
+
+
+.calendar-day.selected {
+  background: #205c46;
+  color: white;
+  border-color: #205c46;
+}
+
+.calendar-day.in-range {
+  background: #cce8da;
+  border-color: #205c46;
+}
+
+.calendar-day.booked {
+  background: #f8caca;
+  color: #842020;
+}
+
+.calendar-day.past {
+  background: #e5e7eb;
+  color: #555;
+}
+
+.booking-selection {
+  margin-top: 1.5rem;
+}

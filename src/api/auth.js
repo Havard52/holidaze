@@ -36,7 +36,7 @@ export async function loginUser(credentials) {
 
   const result = await response.json();
 
-  
+
   if (!response.ok) {
     const message =
       result.errors?.map((error) => error.message).join(", ") ||
@@ -46,4 +46,32 @@ export async function loginUser(credentials) {
   }
 
   return result.data;
+}
+
+export async function createApiKey(accessToken) {
+  const response = await fetch(
+    `${API_BASE_URL}/auth/create-api-key`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify({
+        name: "Holidaze Project Exam",
+      }),
+    }
+  );
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    const message =
+      result.errors?.map((error) => error.message).join(", ") ||
+      "Could not create API key.";
+
+    throw new Error(message);
+  }
+
+  return result.data.key;
 }

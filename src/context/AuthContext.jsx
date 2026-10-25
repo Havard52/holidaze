@@ -14,17 +14,14 @@ function readStoredUser() {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(readStoredUser);
 
-  function login(userData) {
-    const { accessToken, ...profile } = userData;
+function login(userData) {
+  const session = {
+    ...userData,
+  };
 
-    const session = {
-      ...profile,
-      accessToken,
-    };
-
-    localStorage.setItem("holidaze_user", JSON.stringify(session));
-    setUser(session);
-  }
+  localStorage.setItem("holidaze_user", JSON.stringify(session));
+  setUser(session);
+}
 
   function logout() {
     localStorage.removeItem("holidaze_user");

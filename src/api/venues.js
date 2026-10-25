@@ -11,12 +11,13 @@ export async function getVenues() {
 }
 
 export async function getVenue(id) {
-  const response = await fetch(`${API_BASE_URL}/holidaze/venues/${id}`);
-  if (!response.ok) {
-    throw new Error("Could not fetch venue");
-  }
-  const result = await response.json();
+  const response = await fetch(
+    `${API_BASE_URL}/holidaze/venues/${encodeURIComponent(id)}?_bookings=true`);
 
+  if (!response.ok) {
+    throw new Error("Could not fetch venue");}
+
+  const result = await response.json();
   return result.data;
 }
 
