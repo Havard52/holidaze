@@ -10,37 +10,43 @@ function Header() {
     navigate("/");
   }
 
-
   return (
-    <header>
-      <nav>
-        <Link to="/">Holidaze</Link>
+    <header className="site-header">
+      <nav className="header-container">
+        <Link to="/" className="header-logo">
+          Holidaze
+        </Link>
 
-        <div>
+        <div className="header-navigation">
           {isAuthenticated ? (
             <>
+              <div className="header-user">
+                {user.avatar?.url && (
+                  <img
+                    className="header-avatar"
+                    src={user.avatar.url}
+                    alt={user.avatar.alt || "Profile picture"}
+                  />
+                )}
 
-            {user.avatar?.url && (
-              <img
-              className="header-avatar"
-              src={user.avatar.url}
-                alt={user.avatar.alt || "Profile picture"}
-                 />
-               )}
-              <span>Welcome, {user.name}</span>
+                <span>Welcome, {user.name}</span>
+              </div>
 
               <Link to="/profile">My profile</Link>
 
               {user.venueManager && (
                 <Link to="/manager">Manage venues</Link>
-        )}
-              
+              )}
+
               <Link to="/my-bookings">My bookings</Link>
 
-              <button type="button" onClick={handleLogout}>
+              <button
+                type="button"
+                className="logout-button"
+                onClick={handleLogout}
+              >
                 Log out
               </button>
-              
             </>
           ) : (
             <>
@@ -51,6 +57,7 @@ function Header() {
         </div>
       </nav>
     </header>
-  );}
+  );
+}
 
 export default Header;

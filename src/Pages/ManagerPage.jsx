@@ -151,7 +151,7 @@ function ManagerPage() {
               <p>Maximum guests: {venue.maxGuests}</p>
               <p>Bookings: {venue.bookings?.length ?? 0}</p>
 
-          <div className="manager-actions">
+
                 <div className="manager-actions">
                 <Link to={`/venues/${venue.id}`}>
                     View venue
@@ -159,6 +159,10 @@ function ManagerPage() {
 
                 <Link to={`/manager/edit/${venue.id}`}>
                     Edit venue
+                </Link>
+
+                <Link to={`/manager/bookings/${venue.id}`}>
+                    View bookings
                 </Link>
 
                 <button
@@ -172,7 +176,7 @@ function ManagerPage() {
                     : "Delete venue"}
                 </button>
                 </div>
-                </div>
+
             </div>
           </article>
         ))}

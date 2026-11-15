@@ -1,3 +1,4 @@
+import VenueBookingsPage from "./pages/VenueBookingsPage";
 import EditVenuePage from "./pages/EditVenuePage";
 import ProfilePage from "./pages/ProfilePage";
 import MyBookingsPage from "./pages/MyBookingsPage" ;
@@ -16,6 +17,7 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/manager/bookings/:id" element={<VenueBookingsPage />} />
         <Route path="/manager/edit/:id" element={<EditVenuePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/my-bookings" element={<MyBookingsPage />} />
