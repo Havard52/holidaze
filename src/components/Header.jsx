@@ -19,9 +19,24 @@ function Header() {
         <div>
           {isAuthenticated ? (
             <>
+
+            {user.avatar?.url && (
+              <img
+              className="header-avatar"
+              src={user.avatar.url}
+                alt={user.avatar.alt || "Profile picture"}
+                 />
+               )}
               <span>Welcome, {user.name}</span>
+
+              <Link to="/profile">My profile</Link>
+
+              {user.venueManager && (
+                <Link to="/manager">Manage venues</Link>
+        )}
               
               <Link to="/my-bookings">My bookings</Link>
+
               <button type="button" onClick={handleLogout}>
                 Log out
               </button>

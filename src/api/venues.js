@@ -33,3 +33,56 @@ export async function searchVenues(query){
   const result = await response.json();
   return result.data;
 }
+
+
+export async function getMyVenues(name, accessToken, apiKey) {
+  const venues = [];
+  let page = 1;
+
+  do {
+    const response = await fetch(
+      `${API_BASE_URL}/holidaze/profiles/${encodeURIComponent(name)}/venues?_bookings=true&page=${page}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },});
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.errors?.[0]?.message ||
+          "Could not fetch your venues."
+      );}
+
+    venues.push(...result.data);
+    page = result.meta?.nextPage;
+  } while (page);
+
+  return venues;
+}
+
+export async function createVenue(venueData, accessToken, apiKey) {
+  const response = await fetch(
+    `${API_BASE_URL}/holidaze/venues`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+      },
+      body: JSON.stringify(venueData),
+    });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      result.errors?.map((error) => error.message).join(", ") ||
+        "Could not create venue."
+    );}
+
+  return result.data;
+}

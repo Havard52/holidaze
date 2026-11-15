@@ -8,25 +8,44 @@ function readStoredUser() {
     return storedUser ? JSON.parse(storedUser) : null;
   } catch {
     return null;
-  }
-}
+  }}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(readStoredUser);
 
-function login(userData) {
-  const session = {
-    ...userData,
-  };
+  function login(userData) {
+    const session = {
+      ...userData,
+    };
 
-  localStorage.setItem("holidaze_user", JSON.stringify(session));
-  setUser(session);
-}
+    localStorage.setItem(
+      "holidaze_user",
+      JSON.stringify(session)
+    );
+
+    setUser(session);
+  }
+
 
   function logout() {
     localStorage.removeItem("holidaze_user");
     setUser(null);
   }
+
+  function updateUser(profileData) {
+    const updatedUser = {
+      ...user,
+      ...profileData,
+    };
+
+    localStorage.setItem(
+      "holidaze_user",
+      JSON.stringify(updatedUser)
+    );
+
+    setUser(updatedUser);
+  }
+
 
   return (
     <AuthContext.Provider
@@ -35,19 +54,18 @@ function login(userData) {
         isAuthenticated: Boolean(user?.accessToken),
         login,
         logout,
+        updateUser,
       }}
     >
       {children}
     </AuthContext.Provider>
-  );
-}
+  );}
 
-export function useAuth() {
+export function useAuth () {
   const context = useContext(AuthContext);
 
   if (!context) {
     throw new Error("useAuth must be used inside AuthProvider");
   }
 
-  return context;
-}
+  return context;}

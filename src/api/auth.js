@@ -26,7 +26,7 @@ export async function registerUser(userData) {
 }
 
 export async function loginUser(credentials) {
-  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+  const response = await fetch(`${API_BASE_URL}/auth/login?_holidaze=true`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
