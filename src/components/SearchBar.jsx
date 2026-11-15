@@ -7,24 +7,35 @@ function SearchBar({ onSearch }) {
     event.preventDefault();
     onSearch(query.trim());}
 
+
   return (
-    <form onSubmit={handleSubmit} role="search">
+    <form
+      className="search-bar"
+      onSubmit={handleSubmit}
+      role="search"
+    >
       <label htmlFor="venue-search">
         Search for venues
       </label>
 
-
-      <input
-        id="venue-search"
-        type="search"
-        placeholder="Find your nesxt destinations or venues now."
-        value={query}
-        onChange={(event) => setQuery(event.target.value)}
-      />
-
-
-      <button type="submit">Search</button>
+      <div className="search-container">
+        <input
+          id="venue-search"
+          className="search-input"
+          type="search"
+          placeholder="Find your next destination or venue..."
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+        />
+        <button
+          className="search-button"
+          type="submit"
+        >
+          Search
+        </button>
+      </div>
     </form>
   );}
+
 
 export default SearchBar;

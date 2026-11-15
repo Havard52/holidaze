@@ -58,10 +58,11 @@ function RegisterPage() {
     }}
 
   return (
-    <main>
+    <main className="auth-page">
+  <div className="auth-card">
       <h1>Create an account</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form className="auth-form"  onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Username</label>
           <input
@@ -118,14 +119,15 @@ function RegisterPage() {
 
         {success && <p role="status">{success}</p>}
 
-        <button type="submit" disabled={isLoading}>
+        <button className="auth-button" type="submit" disabled={isLoading}>
           {isLoading ? "Creating account..." : "Register"}
         </button>
       </form>
 
-      <p>
+      <p className="auth-footer">
         Do you already have an account? <Link to="/login">Log in</Link>
       </p>
+      </div>
     </main>
   );}
 

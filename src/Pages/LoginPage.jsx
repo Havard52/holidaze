@@ -47,10 +47,11 @@ try {
 }}
 
   return (
-    <main>
+    <main className="auth-page">
+      <div className="auth-card">
       <h1>Log in to Holidaze</h1>
 
-      <form onSubmit={handleSubmit}>
+      <form  className="auth-form" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -79,14 +80,17 @@ try {
 
         {error && <p role="alert">{error}</p>}
 
-        <button type="submit" disabled={isLoading}>
+        <button className="auth-button" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Log in"}
         </button>
       </form>
 
       <p>
-        Don't have an account? <Link to="/register">Register</Link>
+        Don't have an account? <Link className="auth-footer" to="/register">
+          Register
+        </Link>
       </p>
+      </div>
     </main>
   );}
 
