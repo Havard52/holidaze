@@ -1,3 +1,4 @@
+import EditVenuePage from "./pages/EditVenuePage";
 import ProfilePage from "./pages/ProfilePage";
 import MyBookingsPage from "./pages/MyBookingsPage" ;
 import { Routes, Route } from "react-router-dom";
@@ -15,6 +16,7 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/manager/edit/:id" element={<EditVenuePage />} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/my-bookings" element={<MyBookingsPage />} />
         <Route path="/" element={<HomePage />} />
@@ -22,7 +24,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/venues/:id" element={<VenuePage />} />
         <Route path="/manager" element={<ManagerPage />} />
-        <Route path="/manager/create" element={<CreateVenuePage />} />
+        <Route path="/manager/create" element={<CreateVenuePage />} />   
       </Routes>
     </>
   );

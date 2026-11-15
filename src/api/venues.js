@@ -86,3 +86,54 @@ export async function createVenue(venueData, accessToken, apiKey) {
 
   return result.data;
 }
+
+//update venue
+
+export async function updateVenue(
+  id,
+  venueData,
+  accessToken,
+  apiKey
+) {
+  const response = await fetch(
+    `${API_BASE_URL}/holidaze/venues/${encodeURIComponent(id)}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+      },
+      body: JSON.stringify(venueData),
+    });
+
+  const result = await response.json();
+
+  if (!response.ok) {
+    throw new Error(
+      result.errors?.map((error) => error.message).join(", ") ||
+        "Could not update venue."
+    );}
+
+  return result.data;
+}
+
+//delete venue
+
+export async function deleteVenue(id, accessToken, apiKey) {
+  const response = await fetch(
+    `${API_BASE_URL}/holidaze/venues/${encodeURIComponent(id)}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "X-Noroff-API-Key": apiKey,
+      },});
+
+  if (!response.ok) {
+    const result = await response.json().catch(() => null);
+
+    throw new Error(
+      result?.errors?.map((error) => error.message).join(", ") ||
+        "Could not delete venue."
+    );}}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { getMyVenues } from "../api/venues";
+import { getMyVenues, deleteVenue } from "../api/venues";
 
 function ManagerPage() {
   const { user, isAuthenticated } = useAuth();
@@ -10,18 +10,21 @@ function ManagerPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const [deletingId, setDeletingId] = useState(null);
+  const [success, setSuccess] = useState("");
+
+
   useEffect(() => {
     if (!isAuthenticated || !user?.venueManager || !user?.apiKey) {
       return;
     }
-
     let active = true;
 
     async function loadVenues() {
       setIsLoading(true);
       setError("");
 
-      try {
+         try {
         const data = await getMyVenues(
           user.name,
           user.accessToken,
@@ -39,7 +42,6 @@ function ManagerPage() {
         if (active) {
           setIsLoading(false);
         }}}
-        
 
     loadVenues();
 
@@ -48,13 +50,51 @@ function ManagerPage() {
     };
   }, [user, isAuthenticated]);
 
+
+  // Delete venue
+
+  async function handleDeleteVenue(venue) {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${venue.name}"?`
+    );
+
+    if (!confirmed) {
+      return;
+}
+
+    setError("");
+    setSuccess("");
+    setDeletingId(venue.id);
+
+    try {
+      await deleteVenue(
+        venue.id,
+        user.accessToken,
+        user.apiKey
+      );
+
+      setVenues((previousVenues) =>
+        previousVenues.filter(
+          (item) => item.id !== venue.id
+        ));
+
+      setSuccess("Venue deleted successfully!");
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setDeletingId(null);
+    }}
+
+    //access check
+
   if (!isAuthenticated) {
     return (
       <main>
-        <p>Please log in to access the dashboard.</p>
+        <p>Please log in to access the dashboard</p>
         <Link to="/login">Log in</Link>
       </main>
-    );}
+    );
+  }
 
   if (!user.venueManager) {
     return (
@@ -65,15 +105,15 @@ function ManagerPage() {
     );
   }
 
-
   if (!user.apiKey) {
     return <p>Please log out and log in again.</p>;
   }
 
+
   return (
     <main>
       <h1>Venue Manager Dashboard</h1>
-      <p>Manage your venues and bookings.</p>
+      <p>Manage your venues and bookings</p>
 
       <Link className="primary-link" to="/manager/create">
         Create new venue
@@ -84,6 +124,12 @@ function ManagerPage() {
       {isLoading && <p>Loading your venues...</p>}
 
       {error && <p role="alert">{error}</p>}
+
+      {success && (
+    <p className="success-message" role="status">
+    {success}
+    </p>
+)}
 
       {!isLoading && !error && venues.length === 0 && (
         <p>You have not created any venues yet.</p>
@@ -105,9 +151,28 @@ function ManagerPage() {
               <p>Maximum guests: {venue.maxGuests}</p>
               <p>Bookings: {venue.bookings?.length ?? 0}</p>
 
-              <Link to={`/venues/${venue.id}`}>
-                View venue
-              </Link>
+          <div className="manager-actions">
+                <div className="manager-actions">
+                <Link to={`/venues/${venue.id}`}>
+                    View venue
+                </Link>
+
+                <Link to={`/manager/edit/${venue.id}`}>
+                    Edit venue
+                </Link>
+
+                <button
+                    type="button"
+                    className="delete-button"
+                    onClick={() => handleDeleteVenue(venue)}
+                    disabled={deletingId !== null}
+                >
+                    {deletingId === venue.id
+                    ? "Deleting..."
+                    : "Delete venue"}
+                </button>
+                </div>
+                </div>
             </div>
           </article>
         ))}
