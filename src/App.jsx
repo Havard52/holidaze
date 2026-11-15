@@ -1,3 +1,4 @@
+import MyBookingsPage from "./pages/MyBookingsPage";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import HomePage from "./pages/HomePage";
@@ -11,6 +12,7 @@ function App() {
       <Header />
 
       <Routes>
+        <Route path="/my-bookings" element={<MyBookingsPage />} />
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

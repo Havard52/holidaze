@@ -20,10 +20,12 @@ function Header() {
           {isAuthenticated ? (
             <>
               <span>Welcome, {user.name}</span>
-
+              
+              <Link to="/my-bookings">My bookings</Link>
               <button type="button" onClick={handleLogout}>
                 Log out
               </button>
+              
             </>
           ) : (
             <>

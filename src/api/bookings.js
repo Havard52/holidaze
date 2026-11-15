@@ -24,3 +24,34 @@ export async function createBooking(bookingData, accessToken, apiKey) {
   }
 
   return result.data;}
+
+
+export async function getMyBookings(name, accessToken, apiKey) {
+  const bookings = [];
+  let page = 1;
+
+  do {
+    const response = await fetch(
+      `${API_BASE_URL}/holidaze/profiles/${encodeURIComponent(name)}/bookings?_venue=true&page=${page}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "X-Noroff-API-Key": apiKey,
+        },
+      });
+
+    const result = await response.json();
+
+    if (!response.ok) {
+      throw new Error(
+        result.errors?.[0]?.message ||
+          "Could not fetch bookings."
+      );}
+
+    bookings.push(...result.data);
+    page = result.meta?.nextPage;
+  } while (page);
+
+  return bookings;
+}
+
