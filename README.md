@@ -1,16 +1,61 @@
-# React + Vite
+# Holidaze
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Holidaze is an accommodation booking website developed as part of Project Exam 2 at Noroff. The application allows users to discover and book accommodation, while venue managers can create and manage their own venues.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Customers
 
-## React Compiler
+- Browse and search for venues
+- View venue details and booking availability
+- Register and log in
+- Create bookings
+- View upcoming bookings
+- Update profile avatar
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Venue Managers
 
-## Expanding the ESLint configuration
+- Register as a venue manager
+- Create, edit and delete venues
+- View bookings for managed venues
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Built With
+
+- React
+- Vite
+- React Router
+- JavaScript
+- CSS
+- Noroff Holidaze API
+
+## Getting Started
+
+### Installation
+
+Clone the repository:
+
+`git clone YOUR_REPOSITORY_URL`
+
+Navigate to the project folder:
+
+`cd holidaze`
+
+Install dependencies:
+
+`npm install`
+
+Start the development server:
+
+`npm run dev`
+
+## Project Links
+
+- Live website: Coming soon
+- Figma prototype: Coming soon
+- Style guide: Coming soon
+- Gantt chart: Coming soon
+- Kanban board: Coming soon
+
+## Author
+
+Developed as part of Project Exam 2 at Noroff.
